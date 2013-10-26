@@ -7,10 +7,9 @@ window_y = 640
 
 tile_width = 96
 tile_height = 48
-x_start = -tile_width
-y_start = -tile_height
+y_start = tile_height/2
 
-tiles_x = int(window_x/tile_width)*2
+tiles_x = int(window_x/tile_width)
 tiles_y = int(window_y/tile_height)*2
 
 tile_names = ["tile_grass.png"]
@@ -27,8 +26,10 @@ def main():
     for i, ts in enumerate(tiles):
         for j, tile in enumerate(ts):
             tiles[i][j] = Tile(tile_group, image = random.choice(tile_names))
-            tiles[i][j].rect.x = x_start + (tile_width/2)*i
-            tiles[i][j].rect.y = y_start + (tile_height/2)*j
+            tiles[i][j].rect.x = (tile_width)*i
+            if j%2==1:
+                tiles[i][j].rect.x += tile_width/2
+            tiles[i][j].rect.y = (tile_height/2)*j
     while 1:
         time_passed = clock.tick(60)
         for event in pygame.event.get():
